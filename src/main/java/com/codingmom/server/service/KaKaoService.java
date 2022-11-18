@@ -25,7 +25,6 @@ public class  KaKaoService {
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
@@ -51,7 +50,6 @@ public class  KaKaoService {
             }
             System.out.println("response body : " + result);
 
-            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
@@ -104,11 +102,9 @@ public class  KaKaoService {
 
             String k_id = obj.get("id").toString();
             String k_img_url = properties.get("profile_image").toString();
-//            String age_range = kakao_account.get("email").toString();
 
             result.put("k_id", k_id);
             result.put("k_img_url", k_img_url);
-//            result.put("age_range", age_range);
 
             br.close();
 
