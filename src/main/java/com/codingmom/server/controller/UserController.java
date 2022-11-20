@@ -47,8 +47,8 @@ public class UserController {
         return "success";
     }
     @ResponseBody
-    @RequestMapping(value = "/user/join", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public UserTbl ShowUserInfo(@Param("id")Long user_id)throws Exception{
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public UserTbl ShowUserInfo(@PathVariable("id")Long user_id)throws Exception{
         return userRepository.findById(user_id)
                 .orElseThrow();
     }
