@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class JwtService {
@@ -26,7 +27,7 @@ public class JwtService {
         Map<String, Object> payloads = new HashMap<>();
         payloads.put("id", user.getId());
         payloads.put("name", user.getName());
-        payloads.put("k_id", user.getK_id());
+        payloads.put("k_id", user.getKakaoid());
         payloads.put("k_img_url", user.getK_img_url());
         payloads.put("type", user.getType());
 

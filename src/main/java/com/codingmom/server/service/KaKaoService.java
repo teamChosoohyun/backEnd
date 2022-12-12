@@ -3,17 +3,22 @@ package com.codingmom.server.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Struct;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class KakaoService {
-    public String getAccessToken(String auth_code) {
+public class KaKaoService {
+
+    public String getAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -22,36 +27,40 @@ public class KakaoService {
             URL url = new URL(reqURL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
             // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-            conn.setRequestMethod("POST");
+
+            conn.setRequestMethod("GET");
             conn.setDoOutput(true);
+            // POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
-
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=95e372793e81af183d89b707dfa1d7bd"); // 본인이 발급받은 key
-            sb.append("&redirect_uri=http://localhost:3000/auth/kakao/callback"); // 본인이 설정해 놓은 경로
-            sb.append("&code=").append(auth_code);
+
+            sb.append("&client_id=95e372793e81af183d89b707dfa1d7bd"); //본인이 발급받은 key
+            sb.append("&redirect_uri=http://localhost:2020/auth/kakao/callback"); // 본인이 설정한 주소
+
+            sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
 
+            // 결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
 
+            // 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
-            StringBuilder result = new StringBuilder();
+            String result = "";
 
             while ((line = br.readLine()) != null) {
-                result.append(line);
+                result += line;
             }
             System.out.println("response body : " + result);
 
             // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result.toString());
+            JsonElement element = parser.parse(result);
 
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
@@ -61,7 +70,6 @@ public class KakaoService {
 
             br.close();
             bw.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,14 +127,14 @@ public class KakaoService {
     }
 
 
-    public Map<String, Object> getUserInfoById(long k_id) throws IOException {
+    public Map<String, Object> getUserInfoById(String k_id) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
         try {
             URL url = new URL(host+"?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id="+k_id);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "KakaoAK "+ "e280c0079ce7831e329a32834290e627");
+            urlConnection.setRequestProperty("Authorization", "KakaoAK"+ "e280c0079ce7831e329a32834290e627");
             urlConnection.setRequestMethod("GET");
 
             int responseCode = urlConnection.getResponseCode();
