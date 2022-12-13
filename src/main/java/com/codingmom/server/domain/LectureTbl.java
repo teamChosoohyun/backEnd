@@ -11,8 +11,9 @@ import java.sql.Timestamp;
 @Getter
 @ToString
 @Entity
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Leacture {
+public class LectureTbl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +23,7 @@ public class Leacture {
     private java.sql.Timestamp go_work;
     private java.sql.Timestamp leave_work;
 
-    public Leacture(Long id, long lecturer_id, String category, Timestamp work_time, Timestamp go_work, Timestamp leave_work) {
+    public LectureTbl(Long id, long lecturer_id, String category, Timestamp work_time, Timestamp go_work, Timestamp leave_work) {
         this.id = id;
         this.lecturer_id = lecturer_id;
         this.category = category;

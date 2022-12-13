@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class UserTbl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +19,7 @@ public class User {
     private String k_img_url;
     private long type;
 
-    public User(Long id, String name, String kakaoid, String k_img_url, long type) {
+    public UserTbl(Long id, String name, String kakaoid, String k_img_url, long type) {
         this.id = id;
         this.name = name;
         this.kakaoid = kakaoid;
