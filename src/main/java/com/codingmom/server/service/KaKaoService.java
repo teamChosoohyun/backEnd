@@ -33,7 +33,7 @@ public class  KaKaoService {
             StringBuilder sb = new StringBuilder();
 
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=9240bec26b639066d5ac5afdbaeb6bb0"); // 본인이 발급받은 key
+            sb.append("&client_id=95e372793e81af183d89b707dfa1d7bd"); // 본인이 발급받은 key
             sb.append("&redirect_uri=http://localhost:3000/auth/kakao/callback"); // 본인이 설정해 놓은 경로
             sb.append("&code=" + auth_code);
             bw.write(sb.toString());
@@ -128,7 +128,7 @@ public class  KaKaoService {
             URL url = new URL(host+"?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id="+k_id);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "KakaoAK "+ "58c4971e0d44ebafc559b0388b33dbdf");
+            urlConnection.setRequestProperty("Authorization", "KakaoAK "+ "e280c0079ce7831e329a32834290e627");
             urlConnection.setRequestMethod("GET");
 
             int responseCode = urlConnection.getResponseCode();
