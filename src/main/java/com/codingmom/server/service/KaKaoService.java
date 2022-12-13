@@ -1,3 +1,5 @@
+
+
 package com.codingmom.server.service;
 
 import com.google.gson.JsonElement;
@@ -31,8 +33,8 @@ public class  KaKaoService {
             StringBuilder sb = new StringBuilder();
 
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=95e372793e81af183d89b707dfa1d7bd"); // 본인이 발급받은 key
-            sb.append("&redirect_uri=http://localhost:2020/auth/kakao/callback"); // 본인이 설정해 놓은 경로
+            sb.append("&client_id=9240bec26b639066d5ac5afdbaeb6bb0"); // 본인이 발급받은 key
+            sb.append("&redirect_uri=http://localhost:3000/auth/kakao/callback"); // 본인이 설정해 놓은 경로
             sb.append("&code=" + auth_code);
             bw.write(sb.toString());
             bw.flush();
@@ -86,8 +88,9 @@ public class  KaKaoService {
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line = "";
             String res = "";
-            while ((line = br.readLine()) != null) {
-                res += line;
+            while((line=br.readLine())!=null)
+            {
+                res+=line;
             }
 
             System.out.println("res = " + res);
@@ -122,10 +125,10 @@ public class  KaKaoService {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
         try {
-            URL url = new URL(host + "?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id=" + k_id);
+            URL url = new URL(host+"?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id="+k_id);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "KakaoAK " + "58c4971e0d44ebafc559b0388b33dbdf");
+            urlConnection.setRequestProperty("Authorization", "KakaoAK "+ "58c4971e0d44ebafc559b0388b33dbdf");
             urlConnection.setRequestMethod("GET");
 
             int responseCode = urlConnection.getResponseCode();
@@ -135,8 +138,9 @@ public class  KaKaoService {
             BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line = "";
             String res = "";
-            while ((line = br.readLine()) != null) {
-                res += line;
+            while((line=br.readLine())!=null)
+            {
+                res+=line;
             }
             JsonParser parser = new JsonParser();
             JsonObject obj = (JsonObject) parser.parse(res);
