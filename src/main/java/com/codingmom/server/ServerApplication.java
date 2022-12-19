@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class ServerApplication {
 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

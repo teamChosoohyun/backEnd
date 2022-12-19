@@ -117,9 +117,10 @@ public class  KaKaoService {
     }
 
 
-    public Map<String, Object> getUserInfoById(long k_id) throws IOException {
+    public Map<String, Object> getUserInfoById(String k_id) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
+        long a = Integer.parseInt(k_id);
         try {
             URL url = new URL(host+"?secure_resource=false&property_keys=%5B%22properties.profile_image%22%5D&target_id_type=user_id&target_id="+k_id);
 

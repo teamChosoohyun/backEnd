@@ -30,13 +30,14 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user/kakaoLogin", method = RequestMethod.POST)
-    public String KakaoLogin(@RequestParam(value = "k_id", required = true) String k_id) throws Exception {
+    public Object KakaoLogin(@Param(value = "k_id") String k_id) throws Exception {
         UserTbl exist = userRepository.findByKakaoid(k_id);
         if (exist == null) {
             return "guest";
         } else {
-            Map<String, Object> userInfo = kakaoService.getUserInfoById(Long.parseLong(k_id));
-            return "auth exist";
+//            Map<String, Object> userInfo = kakaoService.getUserInfoById(k_id);
+//            return userInfo;
+            return userRepository.findByKakaoid(k_id);
         }
     }
 
