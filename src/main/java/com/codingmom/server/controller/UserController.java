@@ -25,7 +25,7 @@ public class UserController {
     @RequestMapping(value = "/user/getKakaoUserInfo", method = RequestMethod.GET)
     public Map<String, Object> GetKakaoUserInfo(@RequestParam(value = "code", required = true) String code) throws Exception {
         String access_code = kakaoService.getAccessToken(code);
-        Map<String, Object> userInfo = kakaoService.getUserInfo(kakaoService.getAccessToken(access_code));
+        Map<String, Object> userInfo = kakaoService.getUserInfo(access_code);
         return userInfo;
     }
 
