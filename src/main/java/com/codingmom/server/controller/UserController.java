@@ -6,6 +6,7 @@ import com.codingmom.server.service.KaKaoService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -54,6 +55,17 @@ public class UserController {
         return userRepository.findById(user_id)
                 .orElseThrow();
     }
+    @ResponseBody
+    @RequestMapping(value = "/lecturerlist",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public List<UserTbl> ShowLectererlist() throws Exception{
+        return userRepository.findByType(1);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/lecturerlist/{category}",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public List<UserTbl> ShowLecturerlistWithCategory(@PathVariable("category")String category)throws Exception{
+        return userRepository.findByTypeAndCategory(1,category);
+    }
+
 
 
 //    @ResponseBody

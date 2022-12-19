@@ -1,6 +1,7 @@
 package com.codingmom.server.domain;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -18,13 +19,15 @@ public class UserTbl {
     private String kakaoid;
     private String k_img_url;
     private long type;
+    private String category;
 
-    public UserTbl(Long id, String name, String kakaoid, String k_img_url, long type) {
+    public UserTbl(Long id, String name, String kakaoid, String k_img_url, long type,String category) {
         this.id = id;
         this.name = name;
         this.kakaoid = kakaoid;
         this.k_img_url = k_img_url;
         this.type = type;
+        this.category = category;
     }
 }
 
