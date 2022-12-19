@@ -65,6 +65,13 @@ public class UserController {
     public List<UserTbl> ShowLecturerlistWithCategory(@PathVariable("category")String category)throws Exception{
         return userRepository.findByTypeAndCategory(1,category);
     }
+    @ResponseBody
+    @RequestMapping(value = "lecturer/{id}",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public UserTbl GetLecturerInfo(@PathVariable("id")Long id)throws Exception{
+        UserTbl user = userRepository.findById(id)
+                .orElseThrow();
+        return user;
+    }
 
 
 
