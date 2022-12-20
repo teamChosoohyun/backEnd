@@ -39,15 +39,15 @@ public class UserController {
         } else {
 //            Map<String, Object> userInfo = kakaoService.getUserInfoById(k_id);
 //            return userInfo;
-            return userRepository.findByKakaoid(k_id);
+            return exist;
         }
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/join", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public String Join(UserTbl userTbl) throws Exception {
+    public UserTbl Join(UserTbl userTbl) throws Exception {
         userRepository.save(userTbl);
-        return "success";
+        return userRepository.findByKakaoid(userTbl.getKakaoid());
     }
     @ResponseBody
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -56,12 +56,12 @@ public class UserController {
                 .orElseThrow();
     }
     @ResponseBody
-    @RequestMapping(value = "/lecturerlist",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/lecturer/list",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public List<UserTbl> ShowLectererlist() throws Exception{
         return userRepository.findByType(1);
     }
     @ResponseBody
-    @RequestMapping(value = "/lecturerlist/{category}",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/lecturer/list/{category}",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public List<UserTbl> ShowLecturerlistWithCategory(@PathVariable("category")String category)throws Exception{
         return userRepository.findByTypeAndCategory(1,category);
     }

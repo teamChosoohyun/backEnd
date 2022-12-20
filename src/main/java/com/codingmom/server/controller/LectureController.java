@@ -3,6 +3,7 @@ package com.codingmom.server.controller;
 import com.codingmom.server.domain.UserTbl;
 import com.codingmom.server.repository.LectureRepository;
 import com.codingmom.server.repository.UserRepository;
+import lombok.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import com.codingmom.server.domain.LectureTbl;
@@ -80,6 +81,13 @@ public class LectureController {
             return lectureRepository.betweenWorkTime(lecturer_id,begin,end);
         }
         else return "존재하지 않는 사용자 입니다.";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/calender/lecture/{id}",method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public LectureTbl getLecture(@PathVariable("id")Long id)throws Exception{
+        LectureTbl lectureTbl = lectureRepository.findById(id)
+                .orElseThrow();
+        return lectureTbl;
     }
 
 }
